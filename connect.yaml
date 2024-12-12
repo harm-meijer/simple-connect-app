@@ -1,0 +1,21 @@
+deployAs:
+  - name: service
+    applicationType: service
+    endpoint: /service
+    scripts:
+      postDeploy: npm install && npm run build && npm run connector:post-deploy
+      preUndeploy: npm install && npm run build && npm run connector:pre-undeploy
+    configuration:
+      standardConfiguration:
+        - key: ENV_TEST_VALUE
+          description: If you don't set this to pass the unit tests will fail
+          required: true
+          default: "pass"
+        - key: ENV_TEST_SERVER_SUCCESS
+          description: If you don't set this to yes the server will not start
+          required: true
+          default: "yes"
+inheritAs:
+  apiClient:
+    scopes:
+      - manage_project
